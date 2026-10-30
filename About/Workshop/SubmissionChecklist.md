@@ -7,11 +7,11 @@
 - Tags: `Weapons`, `Gameplay`, `Fun`
 - Game versions: `1.6`, `1.7`
 - Description: paste `SteamDescription.md` as BBCode.
-- Preview image: `Hero.png`.
+- Preview image: `Hero.jpg` (1254 × 1254; under Steam's 1 MB preview limit).
 
 ## Gallery
 
-- `Hero.png` is the single approved Workshop image: a pawn firing the handheld Cat Launcher and one cat in flight.
+- `Hero.jpg` is the single approved Workshop image: a pawn firing the handheld Cat Launcher and one cat in flight.
 
 ## Release verification
 
