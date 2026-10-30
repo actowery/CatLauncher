@@ -22,6 +22,9 @@ public sealed class CatLaunchRulesTests
     [Theory][InlineData(0, 0)][InlineData(3, 3)][InlineData(4, 0)][InlineData(-1, 3)]
     public void Cat_facing_uses_a_valid_direction(int input, int expected) => Assert.Equal(expected, CatLaunchRules.NormalizeFacing(input));
 
+    [Theory][InlineData(-1, 4, 0)][InlineData(0, 4, 0)][InlineData(3, 4, 3)][InlineData(4, 4, 3)][InlineData(9, 4, 3)][InlineData(4, 0, 0)]
+    public void Survivor_tint_index_is_always_a_valid_defined_coat(int input, int colorCount, int expected) => Assert.Equal(expected, CatLaunchRules.NormalizeColorIndex(input, colorCount));
+
     [Theory][InlineData(0, 1, 12, 30f)][InlineData(2, -1, 12, 150f)]
     public void Cat_spin_is_independent_from_its_facing(int facing, int spinDirection, int ticks, float expected) => Assert.Equal(expected, CatLaunchRules.FlightRotation(facing, spinDirection, ticks));
 }

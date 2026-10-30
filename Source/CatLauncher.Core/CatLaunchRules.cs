@@ -20,5 +20,7 @@ public static class CatLaunchRules
 
     public static int NormalizeFacing(int facing) => ((facing % 4) + 4) % 4;
 
+    public static int NormalizeColorIndex(int index, int colorCount) => colorCount <= 0 ? 0 : Math.Min(colorCount - 1, Math.Max(0, index));
+
     public static float FlightRotation(int facing, int spinDirection, int elapsedTicks) => NormalizeFacing(facing) * 90f + (spinDirection >= 0 ? 1f : -1f) * elapsedTicks * 2.5f;
 }
