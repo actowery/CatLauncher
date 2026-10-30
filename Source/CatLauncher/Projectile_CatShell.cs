@@ -1,6 +1,7 @@
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace CatLauncher;
 
@@ -11,6 +12,7 @@ public sealed class Projectile_CatShell : Projectile_Explosive
     private int visualFacing = -1;
     private int spinDirection;
     private int firstDrawTick = -1;
+    private bool launchSoundPlayed;
 
     public override void ExposeData()
     {
@@ -19,6 +21,7 @@ public sealed class Projectile_CatShell : Projectile_Explosive
         Scribe_Values.Look(ref visualFacing, "visualFacing", -1);
         Scribe_Values.Look(ref spinDirection, "spinDirection", 0);
         Scribe_Values.Look(ref firstDrawTick, "firstDrawTick", -1);
+        Scribe_Values.Look(ref launchSoundPlayed, "launchSoundPlayed", false);
     }
 
     protected override void DrawAt(Vector3 drawLoc, bool flip = false)
@@ -34,6 +37,7 @@ public sealed class Projectile_CatShell : Projectile_Explosive
     {
         var impactCell = Position;
         var impactMap = Map;
+        if (impactMap is not null) DefDatabase<SoundDef>.GetNamed("Pawn_Cat_Death").PlayOneShot(new TargetInfo(impactCell, impactMap));
         base.Impact(hitThing, blockedByShield);
         if (impactMap is null || !impactCell.InBounds(impactMap)) return;
         FilthMaker.TryMakeFilth(impactCell, impactMap, ThingDefOf.Filth_Blood);
@@ -70,5 +74,10 @@ public sealed class Projectile_CatShell : Projectile_Explosive
         if (visualFacing < 0) visualFacing = Rand.RangeInclusive(0, 3);
         if (spinDirection == 0) spinDirection = Rand.Bool ? 1 : -1;
         if (firstDrawTick < 0) firstDrawTick = Find.TickManager.TicksGame;
+        if (!launchSoundPlayed && Map is not null)
+        {
+            DefDatabase<SoundDef>.GetNamed("Pawn_Cat_Call").PlayOneShot(new TargetInfo(Position, Map));
+            launchSoundPlayed = true;
+        }
     }
 }
