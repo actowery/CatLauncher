@@ -1,5 +1,30 @@
-param([string]$RepositoryRoot = (Split-Path -Parent $PSScriptRoot))
-$output = Join-Path $RepositoryRoot 'outputs'; New-Item -ItemType Directory -Force -Path $output | Out-Null
-$zip = Join-Path $output 'CatLauncher.zip'; if (Test-Path $zip) { Remove-Item $zip -Force }
-Compress-Archive -Path (Join-Path $RepositoryRoot 'About'),(Join-Path $RepositoryRoot 'Defs'),(Join-Path $RepositoryRoot 'Languages'),(Join-Path $RepositoryRoot 'Textures'),(Join-Path $RepositoryRoot '1.6'),(Join-Path $RepositoryRoot '1.7'),(Join-Path $RepositoryRoot 'LoadFolders.xml') -DestinationPath $zip
-(Get-FileHash $zip -Algorithm SHA256).Hash | Set-Content (Join-Path $output 'CatLauncher.zip.sha256')
+param(
+    [string]$RepositoryRoot = (Split-Path -Parent $PSScriptRoot),
+    [string]$OutputDirectory = (Join-Path (Split-Path -Parent $PSScriptRoot) 'outputs')
+)
+
+$ErrorActionPreference = 'Stop'
+& (Join-Path $PSScriptRoot 'validate-package.ps1') -RepositoryRoot $RepositoryRoot -RequireBinaries
+
+$artifactsRoot = Join-Path $RepositoryRoot 'artifacts'
+$stagingRoot = Join-Path $artifactsRoot 'package'
+$modRoot = Join-Path $stagingRoot 'CatLauncher'
+$resolvedRepository = [System.IO.Path]::GetFullPath($RepositoryRoot)
+$resolvedStaging = [System.IO.Path]::GetFullPath($stagingRoot)
+if (-not $resolvedStaging.StartsWith($resolvedRepository, [System.StringComparison]::OrdinalIgnoreCase)) { throw 'Refusing to clean a staging directory outside the repository.' }
+if (Test-Path -LiteralPath $stagingRoot) { Remove-Item -LiteralPath $stagingRoot -Recurse -Force }
+
+New-Item -ItemType Directory -Path $modRoot -Force | Out-Null
+New-Item -ItemType Directory -Path $OutputDirectory -Force | Out-Null
+$runtimeEntries = @('About', 'Defs', 'Languages', 'Textures', '1.6', '1.7', 'LoadFolders.xml', 'LICENSE', 'README.md', 'CHANGELOG.md')
+foreach ($entry in $runtimeEntries) { Copy-Item -LiteralPath (Join-Path $RepositoryRoot $entry) -Destination $modRoot -Recurse -Force }
+
+Get-ChildItem -LiteralPath $modRoot -Recurse -Include '*.pdb' -File | Where-Object { $_.DirectoryName -like '*\Assemblies' } | Remove-Item -Force
+$zipPath = Join-Path $OutputDirectory 'CatLauncher.zip'
+if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
+Compress-Archive -LiteralPath $modRoot -DestinationPath $zipPath -CompressionLevel Optimal
+$checksum = (Get-FileHash -LiteralPath $zipPath -Algorithm SHA256).Hash.ToLowerInvariant()
+$checksumPath = Join-Path $OutputDirectory 'CatLauncher.zip.sha256'
+Set-Content -LiteralPath $checksumPath -Value "$checksum  CatLauncher.zip" -Encoding ascii
+Write-Output "Created $zipPath"
+Write-Output "SHA-256 $checksum"
