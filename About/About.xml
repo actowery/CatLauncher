@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Cat Launcher</name><author>konduct</author><packageId>konduct.catlauncher</packageId>
+  <supportedVersions><li>1.6</li><li>1.7</li></supportedVersions>
+  <description>A long-range launcher that fires spinning cat shells. Frag-grenade damage, bloody impacts, and the occasional battered survivor.</description>
+</ModMetaData>

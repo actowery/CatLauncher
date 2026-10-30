@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <ThingDef ParentName="BaseWeapon">
+    <defName>Weapon_CatLauncher</defName><label>cat launcher</label><description>A long-range launcher that fires rotating cat shells.</description>
+    <graphicData><texPath>Things/Item/Equipment/WeaponRanged/CatLauncher</texPath><graphicClass>Graphic_Single</graphicClass></graphicData>
+    <techLevel>Industrial</techLevel><statBases><Mass>3</Mass><RangedWeapon_Cooldown>3</RangedWeapon_Cooldown><WorkToMake>16000</WorkToMake></statBases>
+    <costList><Steel>80</Steel><ComponentIndustrial>4</ComponentIndustrial><Chemfuel>50</Chemfuel></costList>
+    <recipeMaker><researchPrerequisite>Machining</researchPrerequisite></recipeMaker>
+    <verbs><li><label>launch cat</label><verbClass>Verb_LaunchProjectile</verbClass><hasStandardCommand>true</hasStandardCommand><range>24</range><forcedMissRadius>1.9</forcedMissRadius><warmupTime>2.5</warmupTime><noiseRadius>4</noiseRadius><targetParams><canTargetLocations>true</canTargetLocations></targetParams><defaultProjectile>Projectile_CatShell</defaultProjectile></li></verbs>
+  </ThingDef>
+  <ThingDef ParentName="BaseBullet">
+    <defName>Projectile_CatShell</defName><label>cat shell</label><thingClass>CatLauncher.Projectile_CatShell</thingClass>
+    <graphicData><texPath>Things/Pawn/Animal/Cat/Cat</texPath><graphicClass>Graphic_Single</graphicClass><drawSize>(0.65,0.65)</drawSize></graphicData>
+    <projectile><damageDef>Bomb</damageDef><explosionRadius>1.9</explosionRadius></projectile>
+  </ThingDef>
+  <ThingDef ParentName="MoteBase"><defName>Mote_CatFragment</defName><thingClass>MoteThrown</thingClass><graphicData><texPath>Things/Pawn/Animal/Cat/Cat</texPath><graphicClass>Graphic_Single</graphicClass><drawSize>(0.18,0.18)</drawSize><color>(150,35,35)</color></graphicData><fadeInTime>0</fadeInTime><fadeOutTime>0.7</fadeOutTime><solidTime>2</solidTime><altitudeLayer>MoteOverhead</altitudeLayer></ThingDef>
+</Defs>

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Source/CatLauncher/CatLauncher.csproj" />
+  <Project Path="Tests/CatLauncher.Tests/CatLauncher.Tests.csproj" />
+</Solution>
