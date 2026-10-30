@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <SoundDef>
+    <defName>CatLauncher_Equip</defName>
+    <context>MapOnly</context>
+    <maxVoices>2</maxVoices>
+    <subSounds>
+      <li>
+        <grains><li Class="AudioGrain_Clip"><clipPath>UI/TinyBell</clipPath></li></grains>
+        <volumeRange>8~8</volumeRange>
+        <pitchRange>0.9~1.05</pitchRange>
+      </li>
+    </subSounds>
+  </SoundDef>
+</Defs>
