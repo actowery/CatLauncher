@@ -3,4 +3,8 @@
   <CatLauncher_Name>cat launcher</CatLauncher_Name>
   <CatLauncher_Description>A long-range launcher that fires rotating cat shells. The impact is as messy as a frag grenade. Sometimes, against all odds, a cat survives.</CatLauncher_Description>
   <CatLauncher_Fire>launch cat</CatLauncher_Fire>
+  <CatLauncher.SettingsCategory>Cat Launcher</CatLauncher.SettingsCategory>
+  <CatLauncher.SurvivorChance>Survivor cat chance: {0}%</CatLauncher.SurvivorChance>
+  <CatLauncher.Bloodiness>Bloodiness: {0}%</CatLauncher.Bloodiness>
+  <CatLauncher.SettingsHint>Changes apply to every new cat-shell impact. Defaults are 1% survivor chance and 100% bloodiness.</CatLauncher.SettingsHint>
 </LanguageData>

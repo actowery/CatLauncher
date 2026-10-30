@@ -40,8 +40,9 @@ public sealed class Projectile_CatShell : Projectile_Explosive
         if (impactMap is not null) DefDatabase<SoundDef>.GetNamed("Pawn_Cat_Death").PlayOneShot(new TargetInfo(impactCell, impactMap));
         base.Impact(hitThing, blockedByShield);
         if (impactMap is null || !impactCell.InBounds(impactMap)) return;
-        FilthMaker.TryMakeFilth(impactCell, impactMap, ThingDefOf.Filth_Blood);
-        var fragments = CatLaunchRules.FragmentCount(Rand.Value);
+        var bloodiness = CatLauncherMod.Settings.BloodinessMultiplier;
+        if (bloodiness > 0f) FilthMaker.TryMakeFilth(impactCell, impactMap, ThingDefOf.Filth_Blood);
+        var fragments = CatLaunchRules.ScaleFragmentCount(CatLaunchRules.FragmentCount(Rand.Value), bloodiness);
         for (var i = 0; i < fragments; i++)
         {
             var angle = Rand.Range(0f, 360f) * Mathf.Deg2Rad;
@@ -53,7 +54,7 @@ public sealed class Projectile_CatShell : Projectile_Explosive
                 MoteMaker.MakeStaticMote(cell.ToVector3(), impactMap, DefDatabase<ThingDef>.GetNamed("Mote_CatFragment"), 0.35f);
             }
         }
-        if (CatLaunchRules.ShouldSpawnSurvivor(Rand.Value)) SpawnSurvivor(impactCell, impactMap);
+        if (CatLaunchRules.ShouldSpawnSurvivor(Rand.Value, CatLauncherMod.Settings.SurvivorChance)) SpawnSurvivor(impactCell, impactMap);
     }
 
     private static void SpawnSurvivor(IntVec3 center, Map map)

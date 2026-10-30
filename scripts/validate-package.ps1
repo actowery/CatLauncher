@@ -9,6 +9,7 @@ Assert-Condition (@($about.ModMetaData.supportedVersions.li) -contains '1.6') 'R
 Assert-Condition (@($about.ModMetaData.supportedVersions.li) -contains '1.7') 'RimWorld 1.7 missing.'
 Assert-Condition ((Get-Item $previewPath).Length -lt 1MB) 'Workshop preview must be smaller than 1 MB.'
 Assert-Condition ($defs.Defs.ThingDef.defName -contains 'Weapon_CatLauncher') 'Weapon definition missing.'
+Assert-Condition (($defs.Defs.ThingDef | Where-Object { $_.defName -eq 'Weapon_CatLauncher' }).soundInteract -eq 'TinyBell') 'Weapon pickup sound missing.'
 Assert-Condition ($defs.Defs.ThingDef.defName -contains 'Projectile_CatShell') 'Projectile definition missing.'
 Assert-Condition ($defs.Defs.ThingDef | Where-Object { $_.defName -eq 'Mote_CatFragment' } | ForEach-Object { $_.mote -and $_.graphicData.graphicClass -eq 'Graphic_Multi' }) 'Cat fragment mote definition is invalid.'
 foreach ($version in 'v1.6','v1.7') { Assert-Condition (@($loadFolders.loadFolders.$version.li) -contains '/') "Shared root is not loaded for $version." }

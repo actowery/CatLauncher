@@ -7,8 +7,14 @@ public sealed class CatLaunchRulesTests
     [Theory][InlineData(-0.01f, false)][InlineData(0f, true)][InlineData(0.0099f, true)][InlineData(0.01f, false)][InlineData(1f, false)]
     public void Survivor_roll_uses_one_percent_threshold(float roll, bool expected) => Assert.Equal(expected, CatLaunchRules.ShouldSpawnSurvivor(roll));
 
+    [Theory][InlineData(-0.01f, 0.5f, false)][InlineData(0.01f, 0.02f, true)][InlineData(0.02f, 0.02f, false)][InlineData(0f, -1f, false)][InlineData(0.9f, 0f, false)][InlineData(0.99f, 5f, true)][InlineData(1f, 5f, false)]
+    public void Survivor_roll_respects_configured_chance(float roll, float chance, bool expected) => Assert.Equal(expected, CatLaunchRules.ShouldSpawnSurvivor(roll, chance));
+
     [Theory][InlineData(0f, 4)][InlineData(0.5f, 6)][InlineData(0.999f, 7)]
     public void Fragment_count_stays_within_visual_budget(float roll, int expected) => Assert.Equal(expected, CatLaunchRules.FragmentCount(roll));
+
+    [Theory][InlineData(-2, 1f, 0)][InlineData(6, -1f, 0)][InlineData(6, 0f, 0)][InlineData(6, 0.5f, 3)][InlineData(6, 1f, 6)][InlineData(7, 3f, 21)][InlineData(7, 4f, 21)]
+    public void Fragment_count_scales_with_bloodiness_but_stays_capped(int count, float multiplier, int expected) => Assert.Equal(expected, CatLaunchRules.ScaleFragmentCount(count, multiplier));
 
     [Theory][InlineData(0f, 0.35f)][InlineData(1f, 1f)][InlineData(9f, 2.5f)]
     public void Debris_distance_is_kept_inside_blast_visual_radius(float input, float expected) => Assert.Equal(expected, CatLaunchRules.ClampDebrisDistance(input));
