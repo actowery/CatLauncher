@@ -8,18 +8,26 @@ public sealed class Projectile_CatShell : Projectile_Explosive
 {
     private static readonly Color[] CatColors = { new(0.95f, 0.48f, 0.16f), new(0.18f, 0.18f, 0.18f), new(0.88f, 0.82f, 0.7f), new(0.45f, 0.36f, 0.25f) };
     private int colorIndex = -1;
+    private int visualFacing = -1;
+    private int spinDirection;
+    private int firstDrawTick = -1;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref colorIndex, "colorIndex", -1);
+        Scribe_Values.Look(ref visualFacing, "visualFacing", -1);
+        Scribe_Values.Look(ref spinDirection, "spinDirection", 0);
+        Scribe_Values.Look(ref firstDrawTick, "firstDrawTick", -1);
     }
 
     protected override void DrawAt(Vector3 drawLoc, bool flip = false)
     {
-        if (colorIndex < 0) colorIndex = Rand.RangeInclusive(0, CatColors.Length - 1);
+        InitializeVisuals();
         var graphic = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Animal/Cat/Cat", ShaderDatabase.Cutout, new Vector2(0.65f, 0.65f), CatColors[colorIndex]);
-        Graphics.DrawMesh(MeshPool.plane10, drawLoc, ExactRotation, graphic.MatAt(Rot4.North), 0);
+        var elapsedTicks = Find.TickManager.TicksGame - firstDrawTick;
+        var rotation = Quaternion.AngleAxis(CatLaunchRules.FlightRotation(visualFacing, spinDirection, elapsedTicks), Vector3.up);
+        Graphics.DrawMesh(MeshPool.plane10, drawLoc, rotation, graphic.MatAt(new Rot4(visualFacing)), 0);
     }
 
     protected override void Impact(Thing hitThing, bool blockedByShield = false)
@@ -54,5 +62,13 @@ public sealed class Projectile_CatShell : Projectile_Explosive
             cat.TakeDamage(new DamageInfo(DamageDefOf.Blunt, 1f));
             return;
         }
+    }
+
+    private void InitializeVisuals()
+    {
+        if (colorIndex < 0) colorIndex = Rand.RangeInclusive(0, CatColors.Length - 1);
+        if (visualFacing < 0) visualFacing = Rand.RangeInclusive(0, 3);
+        if (spinDirection == 0) spinDirection = Rand.Bool ? 1 : -1;
+        if (firstDrawTick < 0) firstDrawTick = Find.TickManager.TicksGame;
     }
 }
