@@ -63,6 +63,8 @@ public sealed class Projectile_CatShell : Projectile_Explosive
             if (cell == center || !cell.InBounds(map) || !cell.Standable(map) || cell.GetFirstPawn(map) is not null) continue;
             var cat = PawnGenerator.GeneratePawn(DefDatabase<PawnKindDef>.GetNamed("Cat"));
             GenSpawn.Spawn(cat, cell, map);
+            // The rare survivor is a small jackpot moment: reuse RimWorld's restrained trade-confirmation chime.
+            DefDatabase<SoundDef>.GetNamed("ExecuteTrade").PlayOneShot(new TargetInfo(cell, map));
             cat.TakeDamage(new DamageInfo(DamageDefOf.Blunt, 1f));
             return;
         }
