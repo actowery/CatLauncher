@@ -6,8 +6,7 @@
       "Tests and coverage (rw16)",
       "Tests and coverage (rw17)",
       "Release archive",
-      "CodeQL analysis",
-      "codecov/patch"
+      "CodeQL analysis"
     ]
   },
   "enforce_admins": true,
