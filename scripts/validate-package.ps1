@@ -11,7 +11,10 @@ Assert-Condition ((Get-Item $previewPath).Length -lt 1MB) 'Workshop preview must
 Assert-Condition ($defs.Defs.ThingDef.defName -contains 'Gun_CatLauncher') 'Weapon definition missing.'
 Assert-Condition (($defs.Defs.ThingDef | Where-Object { $_.defName -eq 'Gun_CatLauncher' }).thingClass -eq 'CatLauncher.Thing_CatLauncher') 'Weapon equip hook missing.'
 Assert-Condition (Test-Path (Join-Path $RepositoryRoot 'Defs\SoundDefs\CatLauncher_Sounds.xml')) 'Weapon equip sound definition missing.'
-Assert-Condition (Test-Path (Join-Path $RepositoryRoot 'Patches\CatSurvivorTint.xml')) 'Survivor cat tint patch missing.'
+Assert-Condition (Test-Path (Join-Path $RepositoryRoot 'Defs\HediffDefs\CatLauncher_SurvivorTints.xml')) 'Survivor cat tint definitions missing.'
+$survivorTintPath = Join-Path $RepositoryRoot 'Defs\HediffDefs\CatLauncher_SurvivorTints.xml'; [xml]$survivorTints = Get-Content -Raw $survivorTintPath
+Assert-Condition (@($survivorTints.Defs.HediffDef).Count -eq 4) 'Expected four survivor cat tint definitions.'
+Assert-Condition (@($survivorTints.Defs.HediffDef | Where-Object { $_.description -and $_.skinColorOverride }).Count -eq 4) 'Survivor cat tint definitions must have descriptions and native skin-color overrides.'
 Assert-Condition ($defs.Defs.ThingDef.defName -contains 'Projectile_CatShell') 'Projectile definition missing.'
 Assert-Condition ($defs.Defs.ThingDef | Where-Object { $_.defName -eq 'Mote_CatFragment' } | ForEach-Object { $_.mote -and $_.graphicData.graphicClass -eq 'Graphic_Multi' }) 'Cat fragment mote definition is invalid.'
 foreach ($version in 'v1.6','v1.7') { Assert-Condition (@($loadFolders.loadFolders.$version.li) -contains '/') "Shared root is not loaded for $version." }
