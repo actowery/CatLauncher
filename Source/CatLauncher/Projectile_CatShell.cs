@@ -18,8 +18,8 @@ public sealed class Projectile_CatShell : Projectile_Explosive
     protected override void DrawAt(Vector3 drawLoc, bool flip = false)
     {
         if (colorIndex < 0) colorIndex = Rand.RangeInclusive(0, CatColors.Length - 1);
-        var graphic = GraphicDatabase.Get<Graphic_Single>("Things/Pawn/Animal/Cat/Cat", ShaderDatabase.Cutout, new Vector2(0.65f, 0.65f), CatColors[colorIndex]);
-        Graphics.DrawMesh(MeshPool.plane10, drawLoc, ExactRotation, graphic.MatSingle, 0);
+        var graphic = GraphicDatabase.Get<Graphic_Multi>("Things/Pawn/Animal/Cat/Cat", ShaderDatabase.Cutout, new Vector2(0.65f, 0.65f), CatColors[colorIndex]);
+        Graphics.DrawMesh(MeshPool.plane10, drawLoc, ExactRotation, graphic.MatAt(Rot4.North), 0);
     }
 
     protected override void Impact(Thing hitThing, bool blockedByShield = false)

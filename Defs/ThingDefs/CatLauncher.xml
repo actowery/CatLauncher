@@ -10,8 +10,8 @@
   </ThingDef>
   <ThingDef ParentName="BaseBullet">
     <defName>Projectile_CatShell</defName><label>cat shell</label><thingClass>CatLauncher.Projectile_CatShell</thingClass>
-    <graphicData><texPath>Things/Pawn/Animal/Cat/Cat</texPath><graphicClass>Graphic_Single</graphicClass><drawSize>(0.65,0.65)</drawSize></graphicData>
+    <graphicData><texPath>Things/Pawn/Animal/Cat/Cat</texPath><graphicClass>Graphic_Multi</graphicClass><drawSize>(0.65,0.65)</drawSize></graphicData>
     <projectile><damageDef>Bomb</damageDef><explosionRadius>1.9</explosionRadius></projectile>
   </ThingDef>
-  <ThingDef ParentName="MoteBase"><defName>Mote_CatFragment</defName><thingClass>MoteThrown</thingClass><graphicData><texPath>Things/Pawn/Animal/Cat/Cat</texPath><graphicClass>Graphic_Single</graphicClass><drawSize>(0.18,0.18)</drawSize><color>(150,35,35)</color></graphicData><fadeInTime>0</fadeInTime><fadeOutTime>0.7</fadeOutTime><solidTime>2</solidTime><altitudeLayer>MoteOverhead</altitudeLayer></ThingDef>
+  <ThingDef ParentName="MoteBase"><defName>Mote_CatFragment</defName><thingClass>MoteThrown</thingClass><graphicData><texPath>Things/Pawn/Animal/Cat/Cat</texPath><graphicClass>Graphic_Multi</graphicClass><drawSize>(0.18,0.18)</drawSize><color>(150,35,35)</color></graphicData><mote><fadeInTime>0</fadeInTime><fadeOutTime>0.7</fadeOutTime><solidTime>2</solidTime></mote><altitudeLayer>MoteOverhead</altitudeLayer></ThingDef>
 </Defs>
