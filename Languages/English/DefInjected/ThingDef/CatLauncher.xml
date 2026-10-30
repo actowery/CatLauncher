@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <Weapon_CatLauncher.label>cat launcher</Weapon_CatLauncher.label>
-  <Weapon_CatLauncher.description>A long-range launcher that fires rotating cat shells.</Weapon_CatLauncher.description>
+  <Gun_CatLauncher.label>cat launcher</Gun_CatLauncher.label>
+  <Gun_CatLauncher.description>A long-range launcher that fires rotating cat shells.</Gun_CatLauncher.description>
   <Projectile_CatShell.label>cat shell</Projectile_CatShell.label>
   <Mote_CatFragment.label>cat fragment</Mote_CatFragment.label>
 </LanguageData>

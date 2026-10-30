@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <ThingDef ParentName="BaseGun">
-    <defName>Weapon_CatLauncher</defName><label>cat launcher</label><description>A long-range launcher that fires rotating cat shells.</description><thingClass>CatLauncher.Thing_CatLauncher</thingClass>
+    <defName>Gun_CatLauncher</defName><label>cat launcher</label><description>A long-range launcher that fires rotating cat shells.</description><thingClass>CatLauncher.Thing_CatLauncher</thingClass>
     <graphicData><texPath>Things/Item/Equipment/WeaponRanged/CatLauncher</texPath><graphicClass>Graphic_Single</graphicClass></graphicData>
     <techLevel>Industrial</techLevel><statBases><Mass>3</Mass><RangedWeapon_Cooldown>3</RangedWeapon_Cooldown><WorkToMake>16000</WorkToMake></statBases>
     <costList><Steel>80</Steel><ComponentIndustrial>4</ComponentIndustrial><Chemfuel>50</Chemfuel></costList>

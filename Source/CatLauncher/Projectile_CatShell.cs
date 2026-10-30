@@ -59,9 +59,13 @@ public sealed class Projectile_CatShell : Projectile_Explosive
 
     private static void SpawnSurvivor(IntVec3 center, Map map)
     {
-        foreach (var cell in GenRadial.RadialCellsAround(center, 2f, true))
+        // This runs after the explosion resolves. Keep the survivor beyond the blast radius,
+        // then apply only its deliberate non-lethal injury.
+        foreach (var cell in GenRadial.RadialCellsAround(center, 4f, true))
         {
-            if (cell == center || !cell.InBounds(map) || !cell.Standable(map) || cell.GetFirstPawn(map) is not null) continue;
+            var dx = cell.x - center.x;
+            var dz = cell.z - center.z;
+            if (dx * dx + dz * dz <= 6 || !cell.InBounds(map) || !cell.Standable(map) || cell.GetFirstPawn(map) is not null) continue;
             var cat = PawnGenerator.GeneratePawn(DefDatabase<PawnKindDef>.GetNamed("Cat"));
             GenSpawn.Spawn(cat, cell, map);
             // The rare survivor is a small jackpot moment: reuse RimWorld's restrained trade-confirmation chime.
