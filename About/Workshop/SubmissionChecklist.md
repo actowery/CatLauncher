@@ -7,17 +7,14 @@
 - Tags: `Weapons`, `Gameplay`, `Fun`
 - Game versions: `1.6`, `1.7`
 - Description: paste `SteamDescription.md` as BBCode.
-- Preview image: `../Preview.png`.
+- Preview image: `Hero.png`.
 
-## Gallery upload order
+## Gallery
 
-1. `01-launch.png` — spinning cat shell in flight.
-2. `02-impact.png` — vanilla-style bloody impact effects.
-3. `03-survivor.png` — rare survivor-jackpot moment.
+- `Hero.png` is the single approved Workshop image: a pawn firing the handheld Cat Launcher and one cat in flight.
 
 ## Release verification
 
 - Upload the tested mod package `CatLauncher-v1.0.0.zip` only if a manual file upload is requested.
 - Verify the page links to `https://github.com/actowery/CatLauncher`.
-- Confirm the title, preview, tags, description, and three gallery images before publishing.
-
+- Confirm the title, preview, tags, description, and single hero image before publishing.
