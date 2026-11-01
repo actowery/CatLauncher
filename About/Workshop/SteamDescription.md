@@ -33,6 +33,14 @@ Cat Launcher is a standalone RimWorld weapon mod for [b]1.6 and 1.7 unstable[/b]
 
 [url=https://github.com/actowery/CatLauncher/releases/tag/v1.0.0]Version 1.0.0 release notes and direct download[/url]
 
+[h2]More from konduct[/h2]
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3832026803]Browse the full Konduct's RimWorld Mods collection[/url]
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3831148368]Cat Mortar[/url] — the artillery companion mod that loads actual colony cats or cat corpses as ammunition.
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3829907129]Favorite Color Dropper[/url] — sample a humanlike pawn's favorite color with RimWorld's vanilla eyedropper.
+
+If you enjoy the mod, a rating helps other RimWorld players find it.
+
 [h2]Credits[/h2]
 Created by [b]konduct[/b].
-
