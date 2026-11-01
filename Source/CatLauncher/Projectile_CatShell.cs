@@ -66,8 +66,9 @@ public sealed class Projectile_CatShell : Projectile_Explosive
             var dz = cell.z - center.z;
             if (dx * dx + dz * dz <= 6 || !cell.InBounds(map) || !cell.Standable(map) || cell.GetFirstPawn(map) is not null) continue;
             var cat = PawnGenerator.GeneratePawn(DefDatabase<PawnKindDef>.GetNamed("Cat"));
-            var tint = cat.GetComp<CompSurvivorCatTint>();
-            if (tint is not null) tint.ColorIndex = catColorIndex;
+            // Animal rendering resolves skinColorOverride from active hediffs. This changes the
+            // pawn's actual vanilla body graphic rather than relying on a post-draw overlay.
+            cat.health.AddHediff(DefDatabase<HediffDef>.GetNamed(CatVisuals.SurvivorTintHediffFor(catColorIndex)));
             GenSpawn.Spawn(cat, cell, map);
             // The rare survivor is a small jackpot moment: reuse RimWorld's restrained trade-confirmation chime.
             DefDatabase<SoundDef>.GetNamed("ExecuteTrade").PlayOneShot(new TargetInfo(cell, map));
